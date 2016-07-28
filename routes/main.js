@@ -62,16 +62,14 @@ router.get('/cart', function (req, res, nex) {
 });
 
 router.post('/product/:product_id', function (req, res, next) {
-  // res.json(req.user);
   Cart.findOne({ owner: req.user._id }, function (err, cart){
     cart.items.push({
       item: req.body.product_id,
-      quantity: parseFloat(req.body.quantity),
-      price: parseFloat(req.body.priceValue)
+      quantity: parseInt(req.body.quantity),
+      price: parseFloat(req.body.priceHidden)
     });
 
-    cart.total = (cart.total + (parseFloat(req.body.quantity) * parseFloat(req.body.priceValue))).toFixed(2);
-    // res.json(cart);
+    cart.total = (cart.total + parseFloat(req.body.priceValue)).toFixed(2);
 
     cart.save(function (err) {
       if (err) return next(err);
