@@ -47,6 +47,23 @@ stream.on('error', function (err){
   console.log(err);
 });
 
+router.post('/product/:product_id', function (req, res, next) {
+  Cart.findOne({ owner: req.user._id }, function (err, cart){
+    cart.items.push({
+      item: req.body.product_id,
+      quantity: parseFloat(req.body.quantity),
+      price: parseFloat(req.body.priveValue)
+    });
+
+    cart.total = (cart.total + parseFloat(req.body.priceValue)).toFixed(2);
+
+    cart.save(function (err) {
+      if (err) return next(err);
+      return res.redirect('/cart');
+    });
+  });
+});
+
 router.post('/search', function (req, res) {
   res.redirect('/search?q=' + req.body.q);
 });
