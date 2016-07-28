@@ -114,6 +114,7 @@ router.get('/products/:id', function (req, res, next) {
 
 router.get('/product/:id', function (req, res, next) {
   Product.findById({_id: req.params.id}, function (err, product) {
+    console.log(product);
     res.render('main/product', {
       product: product
     });

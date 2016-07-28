@@ -42,7 +42,6 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function (req, res, next) {
-  console.log(req.logout);
   res.locals.user = req.user;
   next();
 });
