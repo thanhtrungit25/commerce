@@ -39,12 +39,41 @@ $(function() {
         console.log(error);
       }
     });
+  });
+
+  $(document).on('click', '#plus', function (e) {
+    e.preventDefault();
+    var quantity = parseFloat($('#quantity').val());
+    var priceValue = parseFloat($('#priceValue').val());
+
+    quantity += 1;
+    priceValue += parseFloat($('#priceHidden').val());
+
+    $('#quantity').val(quantity);
+    $('#priceValue').val(priceValue.toFixed(2));
+    $('#total').html(quantity);
+
+  });
+
+  $(document).on('click', '#minus', function (e) {
+    e.preventDefault();
+    var quantity = parseFloat($('#quantity').val());
+    var priceValue = parseFloat($('#priceValue').val());
+
+    if (quantity == 1) {
+      quantity = 1;
+      priceValue = parseFloat($('#priceHidden').val());
+    } else {
+      quantity -= 1;
+      priceValue -= parseFloat($('#priceHidden').val());
+    }
+
+    $('#quantity').val(quantity);
+    $('#priceValue').val(priceValue.toFixed(2));
+    $('#total').html(quantity);
+
+  });
 
 
-  })
+});
 
-
-
-
-
-})
